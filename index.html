@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- vue 読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
     <title>My Todo List</title>
-</head>
+  </head>
+  <body>
 
-<body>
-</body>
+    <div id="app">
 
+      <h1>My ToDo List</h1>
+
+      <!-- 認証ボタン -->
+      <template v-if="isLoggedIn">
+        <button v-on:click="logout">ログアウト</button>
+      </template>
+      <template v-else>
+        <button v-on:click="login">ログイン</button>
+      </template>
+
+      <!-- 入力フォーム -->
+      <input v-model="text" v-on:keypress.enter="addItem"></input>
+      <button v-on:click="addItem">追加</button>
+
+      <!-- todoリストボード -->
+      <li v-for="item in todos" v-bind:key="item.id" v-show="!item.done">
+        {{ item.todo }}
+        <button v-on:click="doneItem(item)">done</button>
+      </li>
+
+    </div>
+
+    <!-- main.js 読み込み -->
+    <script src="main.js"></script>
+  </body>
 </html>
+
