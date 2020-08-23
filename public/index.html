@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- vue 読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <!-- bootstrap-vue 読み込み -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+    <title>My Todo List</title>
+  </head>
+  <body>
+
+    <!-- TODO.1 -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/6.2.0/firebase-app.js"></script>
+
+    <!-- Add SDKs for Firebase products that you want to use -->
+    <script src="/__/firebase/6.2.0/firebase-functions.js"></script>
+    <script src="/__/firebase/6.2.0/firebase-firestore.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+
+    <div id="app" class="text-center mx-auto" style="width: 640px;">
+
+      <h1>My ToDo List</h1>
+
+      <!-- 認証ボタン -->
+      <template v-if="isLoggedIn">
+        <b-button variant="danger" v-on:click="logout">ログアウト</b-button>
+      </template>
+      <template v-else>
+        <b-button variant="primary" v-on:click="login">ログイン</b-button>
+      </template>
+
+      <!-- 入力フォーム -->
+      <b-input-group class="my-3">
+        <b-form-input v-model="text" v-on:keypress.enter="addItem"></b-form-input>
+        <b-button variant="primary" v-on:click="addItem">追加</b-button>
+      </b-input-group>
+
+      <!-- todoリストボード -->
+      <b-card title="Board" class="text-left">
+        <b-list-group-item class="my-2" v-for="item in todos" v-bind:key="item.id" v-show="!item.done">
+          {{ item.todo }}
+          <b-button size="sm" class="float-right" variant="outline-success" v-on:click="doneItem(item)">done</b-button>
+        </b-list-group-item>
+      </b-card>
+
+    </div>
+
+    <!-- main.js 読み込み -->
+    <script src="main.js"></script>
+  </body>
+</html>
